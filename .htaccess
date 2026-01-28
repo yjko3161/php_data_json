@@ -1,0 +1,36 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # 1. Force HTTPS (Optional - uncomment if you have SSL)
+    # RewriteCond %{HTTPS} off
+    # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # 2. Remove .php extension from URL
+    # To access /get_data.php as /get_data
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}\.php -f
+    RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+    # 3. Webhook & API Routing
+    RewriteRule ^webhook/([a-zA-Z0-9-]+)$ webhook.php?id=$1 [QSA,L]
+    # Option A: domain/get_data/uuid
+    RewriteRule ^get_data/([a-zA-Z0-9-]+)$ get_data.php?uuid=$1 [QSA,L]
+    
+    # Option B: domain/uuid directly (Shortest URL)
+    # If file doesn't exist, treat it as a Device UUID
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^([a-zA-Z0-9-]+)$ get_data.php?uuid=$1 [QSA,L]
+
+    # 4. Protect sensitive files (just in case they exist)
+    <FilesMatch "^\.(env|sql|log)$">
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+    
+    # 4. Protect config.php from direct web access
+    <Files "config.php">
+        Order allow,deny
+        Deny from all
+    </Files>
+</IfModule>
