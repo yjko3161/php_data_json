@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHP Sensor Simulator</title>
+    <title>Sensor Simulator</title>
     <style>
         body {
             background-color: #111;
@@ -48,7 +48,7 @@
 </head>
 
 <body>
-    <h1>🤖 PHP Sensor Simulator</h1>
+    <h1>🤖 Sensor Simulator</h1>
     <div class="status">
         Status: <span id="status-text">Stopped</span>
         <br>

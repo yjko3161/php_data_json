@@ -6,9 +6,9 @@ require_once 'db_connect.php';
 $devices = [
     "factory-01",
     "factory-02",
-    "office-main",
-    "warehouse-east",
-    "server-room"
+    "factory-03",
+    "factory-04",
+    "factory-05"
 ];
 
 $results = [];
